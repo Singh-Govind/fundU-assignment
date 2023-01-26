@@ -1,7 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField } from "@mui/material";
+import GoogleLogin from "./GoogleLogin";
 
 const validationSchema = yup.object({
   email: yup
@@ -58,6 +59,9 @@ const LoginForm = () => {
           Login
         </Button>
       </form>
+      <Stack direction="row" justifyContent="center" mt="2rem">
+        <GoogleLogin />
+      </Stack>
     </div>
   );
 };
