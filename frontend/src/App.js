@@ -1,5 +1,13 @@
+import { Container } from "@mui/material";
+import AllRoutes from "./pages/AllRoutes";
 function App() {
-  return <div className="App">Hello world</div>;
+  return (
+    <>
+      <Container maxWidth="sm">
+        <AllRoutes />
+      </Container>
+    </>
+  );
 }
 
 export default App;
