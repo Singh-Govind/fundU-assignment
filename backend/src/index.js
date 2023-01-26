@@ -9,6 +9,7 @@ app.use(cors());
 
 app.use("/users", require("./router/user.router"));
 app.use("/posts", require("./router/post.router"));
+app.use("/comments", require("./router/comment.router"));
 
 app.listen(8080, async () => {
   await dbConnect();
