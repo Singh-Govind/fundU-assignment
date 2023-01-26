@@ -4,7 +4,7 @@ const Post = require("../models/post.model");
 const app = express();
 
 app.get("/", async (req, res) => {
-  const { user } = req.body;
+  const user = req.headers["authorization"];
   try {
     let posts = await Post.find({ user: user });
 

@@ -4,7 +4,7 @@ const Comment = require("../models/comment.model");
 const app = express();
 
 app.get("/", async (req, res) => {
-  const id = req.body.post_id;
+  const id = req.query.post_id;
 
   try {
     let comments = await Comment.find({ comment_post_id: id });
