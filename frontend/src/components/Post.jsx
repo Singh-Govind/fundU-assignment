@@ -8,8 +8,23 @@ import { Avatar, CardHeader } from "@mui/material";
 import Comments from "./Comments";
 import { useState } from "react";
 
-export default function Post({ avatar, name, title, description, post_id }) {
+export default function Post({
+  avatar,
+  name,
+  title,
+  description,
+  post_id,
+  dt,
+}) {
   const [loadComment, setLoadComment] = useState(false);
+
+  let options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  let date = new Date(dt);
+  date = date.toLocaleDateString("en-IN", options);
 
   const loadCommentFn = () => {
     setLoadComment(true);
@@ -24,7 +39,8 @@ export default function Post({ avatar, name, title, description, post_id }) {
           </Avatar>
         }
         title={name}
-        subheader="September 14, 2016"
+        subheader={date}
+        // subheader="September 14, 2016"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

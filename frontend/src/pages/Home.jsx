@@ -53,6 +53,7 @@ export default function Home() {
           return (
             <Post
               key={item._id}
+              dt={item.Created_at}
               avatar={user.userpic_url}
               name={user.First_Name + " " + user.last_name}
               title={item.Title}
