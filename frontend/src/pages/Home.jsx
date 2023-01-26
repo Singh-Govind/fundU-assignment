@@ -6,11 +6,32 @@ import {
   Stack,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthConext } from "../context/AuthConext";
 import Post from "../components/Post";
+import { useEffect } from "react";
 
 export default function Home() {
   const [sortBy, setSortBy] = useState("top");
+  const [data, setData] = useState([]);
+  const { user } = useContext(AuthConext);
+
+  const fetchData = async () => {
+    let res = await fetch("http://localhost:8080/posts/", {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `${user.username}`,
+        "Content-Type": "application/json",
+      }),
+    });
+
+    let d = await res.json();
+    setData(d);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     setSortBy(e.target.value);
@@ -20,26 +41,26 @@ export default function Home() {
     <Box mt="3rem">
       <Stack>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Sort</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={sortBy}
-            label="Sort"
-            onChange={handleChange}
-          >
+          <InputLabel>Sort</InputLabel>
+          <Select value={sortBy} label="Sort" onChange={handleChange}>
             <MenuItem value={"top"}>Top</MenuItem>
             <MenuItem value={"recent"}>Recent</MenuItem>
           </Select>
         </FormControl>
       </Stack>
       <Stack alignItems="center">
-        <Post
-          avatar="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80"
-          name="some name"
-          title="Shrimp and Chorizo Paella"
-          description="some text"
-        />
+        {data?.map((item) => {
+          return (
+            <Post
+              key={item._id}
+              avatar={user.userpic_url}
+              name={user.First_Name + " " + user.last_name}
+              title={item.Title}
+              description={item.Text}
+              post_id={item.unique_id}
+            />
+          );
+        })}
       </Stack>
     </Box>
   );

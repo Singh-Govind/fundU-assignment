@@ -1,8 +1,16 @@
 import { Box, Typography } from "@mui/material";
-import LoginForm from "../components/LoginForm";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import SignupForm from "../components/SignupForm";
+import { AuthConext } from "../context/AuthConext";
 
 export default function Signup() {
+  const { isAuth } = useContext(AuthConext);
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <Box
       sx={{

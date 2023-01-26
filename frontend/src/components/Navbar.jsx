@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import { AuthConext } from "../context/AuthConext";
+import { useContext } from "react";
 
 export default function Navbar() {
+  const { isAuth, logOut } = useContext(AuthConext);
   return (
     <Stack
       direction="row"
@@ -23,8 +26,16 @@ export default function Navbar() {
         spacing={2}
       >
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/signup">Signup</NavLink>
+        {isAuth ? (
+          <Button onClick={logOut} color="warning">
+            Logout
+          </Button>
+        ) : (
+          <>
+            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/signup">Signup</NavLink>
+          </>
+        )}
       </Stack>
     </Stack>
   );

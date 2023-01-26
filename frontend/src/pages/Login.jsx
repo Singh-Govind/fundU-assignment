@@ -1,7 +1,28 @@
 import { Box, Typography } from "@mui/material";
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
+import { AuthConext } from "../context/AuthConext";
 
 export default function Login() {
+  const { isAuth, login } = useContext(AuthConext);
+
+  const loginUser = async (values) => {
+    let res = await fetch("http://localhost:8080/users/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: values,
+    });
+
+    let data = await res.json();
+
+    login(data.user);
+  };
+
+  if (isAuth) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <Box
       sx={{
@@ -13,7 +34,7 @@ export default function Login() {
       <Typography variant="h4" textAlign="center" component="h2" mb="3rem">
         Login
       </Typography>
-      <LoginForm />
+      <LoginForm loginUser={loginUser} />
     </Box>
   );
 }

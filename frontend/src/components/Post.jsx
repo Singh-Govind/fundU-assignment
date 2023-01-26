@@ -8,7 +8,7 @@ import { Avatar, CardHeader } from "@mui/material";
 import Comments from "./Comments";
 import { useState } from "react";
 
-export default function Post({ avatar, name, title, description }) {
+export default function Post({ avatar, name, title, description, post_id }) {
   const [loadComment, setLoadComment] = useState(false);
 
   const loadCommentFn = () => {
@@ -40,7 +40,7 @@ export default function Post({ avatar, name, title, description }) {
 
       {loadComment ? (
         <CardContent sx={{ borderTop: "1px solid lightgray" }}>
-          <Comments />
+          <Comments post_id={post_id} />
         </CardContent>
       ) : (
         ""

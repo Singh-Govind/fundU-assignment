@@ -5,25 +5,22 @@ import { Box, Button, Stack, TextField } from "@mui/material";
 import GoogleLogin from "./GoogleLogin";
 
 const validationSchema = yup.object({
-  email: yup
-    .string("Enter your email")
-    .email("Enter a valid email")
-    .required("Email is required"),
-  password: yup
+  username: yup.string("Enter your username").required("username is required"),
+  Password: yup
     .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
+    .min(4, "Password should be of minimum 4 characters length")
     .required("Password is required"),
 });
 
-const LoginForm = () => {
+const LoginForm = ({ loginUser }) => {
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      username: "",
+      Password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      loginUser(JSON.stringify(values));
     },
   });
 
@@ -33,26 +30,26 @@ const LoginForm = () => {
         <Box mb="1rem">
           <TextField
             fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            value={formik.values.email}
+            id="username"
+            name="username"
+            label="Username"
+            value={formik.values.username}
             onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
           />
         </Box>
         <Box mb="2rem">
           <TextField
             fullWidth
-            id="password"
-            name="password"
+            id="Password"
+            name="Password"
             label="Password"
             type="password"
-            value={formik.values.password}
+            value={formik.values.Password}
             onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
+            error={formik.touched.Password && Boolean(formik.errors.Password)}
+            helperText={formik.touched.Password && formik.errors.Password}
           />
         </Box>
         <Button color="primary" variant="contained" fullWidth type="submit">
