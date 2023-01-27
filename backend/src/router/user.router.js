@@ -3,11 +3,23 @@ const User = require("../models/user.model");
 
 const app = express.Router();
 
-app.post("/singup", async (req, res) => {
+app.get("/singleuser", async (req, res) => {
+  let { username } = req.query;
   try {
-    let user = await User.create(req.body);
+    let user = await User.find({ username }, { Password: 0 });
+
+    res.send(user);
+  } catch (e) {
+    res.status(500).send({ msg: "something went wrong" });
+  }
+});
+
+app.post("/signup", async (req, res) => {
+  try {
+    let user = await User.create({ ...req.body });
     return res.send({ msg: "user created", user });
   } catch (e) {
+    console.log(e.message);
     res.status(500).send({ msg: "Some thing went wrong" });
   }
 });

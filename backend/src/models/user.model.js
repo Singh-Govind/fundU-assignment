@@ -6,7 +6,11 @@ const userSchema = new Schema({
   email: { type: String, required: true },
   Password: { type: String, required: true },
   username: { type: String, required: true },
-  userpic_url: { type: String, required: true },
+  userpic_url: {
+    type: String,
+    required: true,
+    default: "https://randomuser.me/api/portraits/med/men/81.jpg",
+  },
   Followers: { type: Number, default: 0 },
   Followings: { type: Number, default: 0 },
   number_of_posts: { type: Number, default: 0 },
