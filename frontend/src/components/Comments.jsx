@@ -6,7 +6,9 @@ export default function Comments({ post_id }) {
   const [comments, setComments] = useState([]);
 
   const fetchComments = async () => {
-    let res = await fetch(`http://localhost:8080/comments?post_id=${post_id}`);
+    let res = await fetch(
+      `https://easy-ruby-seahorse-garb.cyclic.app/comments?post_id=${post_id}`
+    );
     let comm = await res.json();
     setComments(comm.comments);
   };

@@ -39,11 +39,6 @@ export default function MyGoogleLogin() {
         padding: "0.25rem 1.5rem",
       }}
     >
-      {/* <img
-        width="50px"
-        src="https://kgo.googleusercontent.com/profile_vrt_raw_bytes_1587515358_10512.png"
-      />
-      <Typography>Login with google</Typography> */}
       <GoogleLogin
         clientId={clientId}
         buttonText="Login"

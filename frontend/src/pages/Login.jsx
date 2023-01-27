@@ -8,11 +8,14 @@ export default function Login() {
   const { isAuth, login } = useContext(AuthConext);
 
   const loginUser = async (values) => {
-    let res = await fetch("http://localhost:8080/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: values,
-    });
+    let res = await fetch(
+      "https://easy-ruby-seahorse-garb.cyclic.app/users/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: values,
+      }
+    );
 
     let data = await res.json();
 

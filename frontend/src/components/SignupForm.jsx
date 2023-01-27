@@ -28,11 +28,14 @@ const SignupForm = () => {
   const navigate = useNavigate();
 
   const singUp = async (values) => {
-    let res = await fetch("http://localhost:8080/users/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    let res = await fetch(
+      "https://easy-ruby-seahorse-garb.cyclic.app/users/signup",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      }
+    );
     if (res) {
       alert("created successfully");
       navigate("/login");

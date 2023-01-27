@@ -19,7 +19,7 @@ export default function Home() {
 
   const fetchData = async () => {
     let res = await fetch(
-      `http://localhost:8080/posts/allposts?page=${page}&sort=${sortBy}`
+      `https://easy-ruby-seahorse-garb.cyclic.app/posts/allposts?page=${page}&sort=${sortBy}`
     );
 
     let d = await res.json();

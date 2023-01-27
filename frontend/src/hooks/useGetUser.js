@@ -5,7 +5,7 @@ export default function useGetUser(username) {
 
   const fetchUser = async () => {
     let res = await fetch(
-      `http://localhost:8080/users/singleuser?username=${username}`
+      `https://easy-ruby-seahorse-garb.cyclic.app/users/singleuser?username=${username}`
     );
     let d = await res.json();
     setUserData(d[0]);

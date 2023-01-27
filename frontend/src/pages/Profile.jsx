@@ -18,13 +18,16 @@ export default function Profile() {
   const { user } = useContext(AuthConext);
 
   const fetchData = async () => {
-    let res = await fetch("http://localhost:8080/posts/myposts", {
-      method: "GET",
-      headers: new Headers({
-        Authorization: `${user.username}`,
-        "Content-Type": "application/json",
-      }),
-    });
+    let res = await fetch(
+      "https://easy-ruby-seahorse-garb.cyclic.app/posts/myposts",
+      {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `${user.username}`,
+          "Content-Type": "application/json",
+        }),
+      }
+    );
 
     let d = await res.json();
     setData(d);
