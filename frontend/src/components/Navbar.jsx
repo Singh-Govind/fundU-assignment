@@ -27,9 +27,12 @@ export default function Navbar() {
       >
         <NavLink to="/">Home</NavLink>
         {isAuth ? (
-          <Button onClick={logOut} color="warning">
-            Logout
-          </Button>
+          <>
+            <NavLink to="/profile">Profile</NavLink>
+            <Button onClick={logOut} color="warning">
+              Logout
+            </Button>
+          </>
         ) : (
           <>
             <NavLink to="/login">Login</NavLink>

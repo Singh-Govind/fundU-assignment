@@ -3,16 +3,18 @@ import Login from "./Login";
 import Home from "./Home";
 import Signup from "./Signup";
 import PrivateRoute from "../components/PrivateRoute";
+import Profile from "./Profile";
 
 export default function AllRoutes() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route
-          path="/"
+          path="/profile"
           element={
             <PrivateRoute>
-              <Home />
+              <Profile />
             </PrivateRoute>
           }
         />

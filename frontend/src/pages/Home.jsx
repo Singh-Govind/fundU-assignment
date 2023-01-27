@@ -2,43 +2,47 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Pagination,
   Select,
   Stack,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useContext, useState } from "react";
-import { AuthConext } from "../context/AuthConext";
+import { useState } from "react";
 import Post from "../components/Post";
 import { useEffect } from "react";
 
 export default function Home() {
   const [sortBy, setSortBy] = useState("top");
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
   const [data, setData] = useState([]);
-  const { user } = useContext(AuthConext);
 
   const fetchData = async () => {
-    let res = await fetch("http://localhost:8080/posts/", {
-      method: "GET",
-      headers: new Headers({
-        Authorization: `${user.username}`,
-        "Content-Type": "application/json",
-      }),
-    });
+    let res = await fetch(
+      `http://localhost:8080/posts/allposts?page=${page}&sort=${sortBy}`
+    );
 
     let d = await res.json();
-    setData(d);
+    console.log(d);
+    setTotalPage(d.totalPages);
+    setData(d.posts);
+  };
+
+  const handlePageChange = (event, value) => {
+    setPage(+value);
+    console.log(+value);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [page, sortBy]);
 
   const handleChange = (e) => {
     setSortBy(e.target.value);
   };
 
   return (
-    <Box mt="3rem">
+    <Box mt="3rem" mb="5rem">
       <Stack>
         <FormControl fullWidth>
           <InputLabel>Sort</InputLabel>
@@ -48,20 +52,22 @@ export default function Home() {
           </Select>
         </FormControl>
       </Stack>
-      <Stack alignItems="center">
+      <Stack minWidth="100%" alignItems="center">
         {data?.map((item) => {
           return (
             <Post
               key={item._id}
               dt={item.Created_at}
-              avatar={user.userpic_url}
-              name={user.First_Name + " " + user.last_name}
               title={item.Title}
               description={item.Text}
               post_id={item.unique_id}
+              user={item.user}
             />
           );
         })}
+      </Stack>
+      <Stack alignItems="center" mt="2rem">
+        <Pagination page={page} count={totalPage} onChange={handlePageChange} />
       </Stack>
     </Box>
   );

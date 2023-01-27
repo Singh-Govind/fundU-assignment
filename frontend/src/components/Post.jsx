@@ -7,24 +7,13 @@ import Typography from "@mui/material/Typography";
 import { Avatar, CardHeader } from "@mui/material";
 import Comments from "./Comments";
 import { useState } from "react";
+import useGetUser from "../hooks/useGetUser";
+import useFormatDate from "../hooks/useFormatDate";
 
-export default function Post({
-  avatar,
-  name,
-  title,
-  description,
-  post_id,
-  dt,
-}) {
+export default function Post({ title, description, post_id, user, dt }) {
   const [loadComment, setLoadComment] = useState(false);
-
-  let options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  let date = new Date(dt);
-  date = date.toLocaleDateString("en-IN", options);
+  const { userData } = useGetUser(user);
+  const { date } = useFormatDate(dt);
 
   const loadCommentFn = () => {
     setLoadComment(true);
@@ -35,12 +24,11 @@ export default function Post({
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">
-            <img width="100%" src={avatar} />
+            <img width="100%" src={userData.userpic_url} />
           </Avatar>
         }
-        title={name}
+        title={userData.First_Name + " " + userData.last_name}
         subheader={date}
-        // subheader="September 14, 2016"
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

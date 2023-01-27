@@ -2,29 +2,56 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Box, Button, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
     .required("Email is required"),
-  name: yup.string("Enter your name").required("Name is required"),
-  password: yup
+  First_Name: yup
+    .string("Enter First your name")
+    .required("first Name is required"),
+  last_name: yup
+    .string("Enter Last your name")
+    .required("last name is required"),
+  username: yup
+    .string("Enter Last your username")
+    .required("username is required"),
+  Password: yup
     .string("Enter your password")
     .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
 });
 
 const SignupForm = () => {
+  const navigate = useNavigate();
+
+  const singUp = async (values) => {
+    let res = await fetch("http://localhost:8080/users/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+    if (res) {
+      alert("created successfully");
+      navigate("/login");
+    } else {
+      alert("something went wrong");
+    }
+  };
+
   const formik = useFormik({
     initialValues: {
       email: "",
-      password: "",
-      name: "",
+      Password: "",
+      First_Name: "",
+      last_name: "",
+      username: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      singUp(values);
     },
   });
 
@@ -34,13 +61,39 @@ const SignupForm = () => {
         <Box mb="1rem">
           <TextField
             fullWidth
-            id="name"
-            name="name"
-            label="Name"
-            value={formik.values.name}
+            id="First_Name"
+            name="First_Name"
+            label="First_Name"
+            value={formik.values.First_Name}
             onChange={formik.handleChange}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
+            error={
+              formik.touched.First_Name && Boolean(formik.errors.First_Name)
+            }
+            helperText={formik.touched.First_Name && formik.errors.First_Name}
+          />
+        </Box>
+        <Box mb="1rem">
+          <TextField
+            fullWidth
+            id="last_name"
+            name="last_name"
+            label="last_name"
+            value={formik.values.last_name}
+            onChange={formik.handleChange}
+            error={formik.touched.last_name && Boolean(formik.errors.last_name)}
+            helperText={formik.touched.last_name && formik.errors.last_name}
+          />
+        </Box>
+        <Box mb="1rem">
+          <TextField
+            fullWidth
+            id="username"
+            name="username"
+            label="username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
           />
         </Box>
         <Box mb="1rem">
@@ -58,14 +111,14 @@ const SignupForm = () => {
         <Box mb="2rem">
           <TextField
             fullWidth
-            id="password"
-            name="password"
+            id="Password"
+            name="Password"
             label="Password"
-            type="password"
-            value={formik.values.password}
+            type="Password"
+            value={formik.values.Password}
             onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
+            error={formik.touched.Password && Boolean(formik.errors.Password)}
+            helperText={formik.touched.Password && formik.errors.Password}
           />
         </Box>
         <Button color="primary" variant="contained" fullWidth type="submit">
