@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Box, Button, Stack, TextField } from "@mui/material";
-import GoogleLogin from "./GoogleLogin";
+import MyGoogleLogin from "./MyGoogleLogin";
 
 const validationSchema = yup.object({
   username: yup.string("Enter your username").required("username is required"),
@@ -57,7 +57,7 @@ const LoginForm = ({ loginUser }) => {
         </Button>
       </form>
       <Stack direction="row" justifyContent="center" mt="2rem">
-        <GoogleLogin />
+        <MyGoogleLogin />
       </Stack>
     </div>
   );

@@ -2,9 +2,11 @@ import { NavLink } from "react-router-dom";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { AuthConext } from "../context/AuthConext";
 import { useContext } from "react";
+import { GoogleLogout } from "react-google-login";
 
 export default function Navbar() {
-  const { isAuth, logOut } = useContext(AuthConext);
+  const { isAuth, user, logOut } = useContext(AuthConext);
+
   return (
     <Stack
       direction="row"
@@ -29,9 +31,15 @@ export default function Navbar() {
         {isAuth ? (
           <>
             <NavLink to="/profile">Profile</NavLink>
-            <Button onClick={logOut} color="warning">
-              Logout
-            </Button>
+            {user.googleId ? (
+              <Box onClick={logOut}>
+                <GoogleLogout />
+              </Box>
+            ) : (
+              <Button onClick={logOut} color="warning">
+                Logout
+              </Button>
+            )}
           </>
         ) : (
           <>

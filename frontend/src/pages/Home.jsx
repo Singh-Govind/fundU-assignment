@@ -23,7 +23,7 @@ export default function Home() {
     );
 
     let d = await res.json();
-    console.log(d);
+
     setTotalPage(d.totalPages);
     setData(d.posts);
   };
