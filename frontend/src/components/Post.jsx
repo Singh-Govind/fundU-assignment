@@ -20,7 +20,7 @@ export default function Post({ title, description, post_id, user, dt }) {
   };
 
   return (
-    <Card sx={{ maxWidth: "100%", mt: "2rem" }}>
+    <Card sx={{ width: "100%", mt: "2rem" }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "red" }} aria-label="recipe">

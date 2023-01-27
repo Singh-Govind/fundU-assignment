@@ -30,7 +30,6 @@ export default function Home() {
 
   const handlePageChange = (event, value) => {
     setPage(+value);
-    console.log(+value);
   };
 
   useEffect(() => {
@@ -42,7 +41,7 @@ export default function Home() {
   };
 
   return (
-    <Box mt="3rem" mb="5rem">
+    <Box mt="3rem" mb="5rem" width="100%">
       <Stack>
         <FormControl fullWidth>
           <InputLabel>Sort</InputLabel>
@@ -52,7 +51,7 @@ export default function Home() {
           </Select>
         </FormControl>
       </Stack>
-      <Stack minWidth="100%" alignItems="center">
+      <Stack width="100%" alignItems="center">
         {data?.map((item) => {
           return (
             <Post

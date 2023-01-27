@@ -45,11 +45,10 @@ export default function Profile() {
             <Post
               key={item._id}
               dt={item.Created_at}
-              avatar={user.userpic_url}
-              name={user.First_Name + " " + user.last_name}
               title={item.Title}
               description={item.Text}
               post_id={item.unique_id}
+              user={item.user}
             />
           );
         })}
